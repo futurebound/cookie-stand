@@ -2,15 +2,15 @@
 
 var pikeStore = {
   storeName: '1st and Pike',
-  minCustomer: 23,
-  maxCustomer: 65,
+  minCust: 23,
+  maxCust: 65,
   avgCookiesPerCustomer: 6.3,
   // array to use in for loop that has the operating hours of business factored into calculations
   storeHours: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm,', '5pm', '6pm', '7pm'],
   // function modeling for # of hourly customers
   hourlyCustomers: function() {
-    var min = this.minCustomer;
-    var max = this.maxCustomer;
+    var min = this.minCust;
+    var max = this.maxCust;
     var avg = this.avgCookiesPerCustomer;
     // this is a variable to keep track of totalHourlySales with the randomly generated projectedSales number at each hour, so in future if we want
     var totalHourlySales = 0;
@@ -152,3 +152,23 @@ function adminMetrics() {
   var container = document.createElement('div')
   container.innerHTML = '<ul>' +
 };
+
+
+var buildSales = function(salesArray) {
+  for (var k = 0; k < salesArray.length; k++) {
+    var storeSection = document.createElement('section');
+    var storeName = '<h2>' + salesArray[k].name + '</h2>';
+    var salesAmount = [];
+    var salesAmountTotal;
+    salesArray[k].hourlyCustomers();
+    var storeSales = document.createElement('ul');
+
+    for (var l = 0; l < salesArray[k].hoursOfBusiness.length; l++) {
+      salesAmount.push('<li>' + salesArray[k].hoursOfBusiness[l] + ': ' + salesArray)
+    }
+    // console.log('sales per hour:', salesAmount);
+    // console.log('store sales:', storeSales);
+    salesAmountTotal = '<li>Total: ' + salesArray[k].salesTotal + '</li>';
+    salesAmount.push(salesAmountTotal);
+    // console.log()
+}
