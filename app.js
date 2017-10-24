@@ -145,7 +145,7 @@ var alkiStore = {
   }
 };
 
-var storeData = [pikestore.storeName, ]
+var storeNames = [pikestore.storeName, seatacStore.storeName, seattleCenterStore.storeName, capHillStore.storeName, alkiStore.storeName];
 
 
 function adminMetrics() {
