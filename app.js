@@ -1,5 +1,14 @@
 'use strict';
 
+function Store(storeName, minCust, maxCust, avgPerCust) {
+  this.storeName = storeName,
+  this.minCust = minCust,
+  this.maxCust = maxCust,
+  this.avgPerCust = avgPerCust,
+  this.totalHourlySales = 0,
+  this.projectedHourlySales = [];
+};
+
 var pikeStore = {
   storeName: '1st and Pike',
   minCust: 23,
