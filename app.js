@@ -9,7 +9,7 @@ function Store(storeName, minCust, maxCust, avgPerCust) {
   this.maxCust = maxCust,
   this.avgPerCust = avgPerCust,
   this.totalHourlySales = 0,
-  this.projectedHourlySales = ['6AM', '7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM', '6PM', '7PM',];
+  this.storeHours = ['6AM', '7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM', '6PM', '7PM',];
 };
 
 stores.push(new Store('1st and Pike', 23, 65, 6.3));
@@ -18,10 +18,11 @@ stores.push(new Store('Seattle Center', 11, 38, 3.7));
 stores.push(new Store('Capitol Hill', 20, 38, 2.3));
 stores.push(new Store('Alki', 2, 16, 4.6));
 
-hourlyCustomers: function() {
+hourlyCustomers = function() {
   var min = this.minCust;
   var max = this.maxCust;
   var avg = this.avgPerCust;
+  // for loop that cycles through all the storeHours array to provide projectedSales data based on the min/max customer values provided, as well as the average cookies sold per customer, pushes the projected hourly sales calculated from the randomly calculated projected customers, console logs those values with each iteration per hour, and then ultimately returns an array with the projected hourly sales for each hour and the total hourly sales for the day
   for(var i = 0; i < this.storeHours.length; i++) {
     var projectedCustomers = Math.floor(Math.random() * (max - min) + min);
     this.projectedHourlySales.push(Math.ceil(projectedCustomers * avg));
@@ -29,37 +30,8 @@ hourlyCustomers: function() {
     console.log('projected hourly sales:', this.projectedHourlySales[i]);
     console.log('total hourly sales:', this.totalHourlySales);
   };
+  // returns key metrics into an array
   return [this.projectedHourlySales, this.totalHourlySales];
-};
-
-
-var pikeStore = {
-  storeName: '1st and Pike',
-  minCust: 23,
-  maxCust: 65,
-  avgPerCust: 6.3,
-  // this is a variable to keep track of totalHourlySales with the randomly generated projectedSales number at each hour, so in future if we want
-  totalHourlySales: 0,
-  // empty array to push the projected sales value per hour as calculated by the for loop
-  projectedHourlySales: [],
-  // array to use in for loop that has the operating hours of business factored into calculations
-  storeHours: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm,', '5pm', '6pm', '7pm'],
-  // function modeling for # of hourly customers
-  hourlyCustomers: function() {
-    var min = this.minCust;
-    var max = this.maxCust;
-    var avg = this.avgPerCust;
-    // for loop that cycles through all the storeHours array to provide projectedSales data based on the min/max customer values provided, as well as the average cookies sold per customer, pushes the projected hourly sales calculated from the randomly calculated projected customers, console logs those values with each iteration per hour, and then ultimately returns an array with the projected hourly sales for each hour and the total hourly sales for the day
-    for(var i = 0; i < this.storeHours.length; i++) {
-      var projectedCustomers = Math.floor(Math.random() * (max - min) + min);
-      this.projectedHourlySales.push(Math.ceil(projectedCustomers * avg));
-      this.totalHourlySales += (Math.ceil(projectedCustomers * avg));
-      console.log('projected hourly sales:', this.projectedHourlySales[i]);
-      console.log('total hourly sales:', this.totalHourlySales);
-    };
-    // returns key metrics into an array
-    return [this.projectedHourlySales, this.totalHourlySales];
-  }
 };
 
 // salesMetrics is a function that accepts storesArray as argument
