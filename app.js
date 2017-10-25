@@ -1,6 +1,7 @@
 'use strict';
 
 var table = document.getElementById('salesContent');
+//this array gets filled by stores.push below
 var stores = [];
 
 function Store(storeName, minCust, maxCust, avgPerCust) {
@@ -12,11 +13,49 @@ function Store(storeName, minCust, maxCust, avgPerCust) {
   this.storeHours = ['6AM', '7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM', '6PM', '7PM',];
 };
 
+//pushes new objects to the stores array above, that contain dynamic information as properties of those objects that can be called upon by things such as stores[0].storeName, etc.
 stores.push(new Store('1st and Pike', 23, 65, 6.3));
 stores.push(new Store('SeaTac Airport', 3, 24, 1.2));
 stores.push(new Store('Seattle Center', 11, 38, 3.7));
 stores.push(new Store('Capitol Hill', 20, 38, 2.3));
 stores.push(new Store('Alki', 2, 16, 4.6));
+
+hourlyCustomers = function() {
+  var min = this.minCust;
+  var max = this.maxCust;
+  var avg = this.avgPerCust;
+  for(var i = 0; i < this.storeHours.length; i++) {
+    var projectedCustomers = Math.floor(Math.random() * (max - min) + min);
+    this.projectedHourlySales.push(Math.ceil(projectedCustomers * avg));
+    this.totalHourlySales += (Math.ceil(projectedCustomers * avg));
+    console.log('projected hourly sales:', this.projectedHourlySales[i]);
+    console.log('total hourly sales:', this.totalHourlySales);
+  };
+  return [this.projectedHourlySales, this.totalHourlySales];
+};
+
+var salesMetrics = function(storeData) {
+  for (var j = 0; j < storeData.length; j++) {
+    document.createElement('section');
+    var salesAmount = ['<h2>' + storeData[j].storeName + '</h2>', '<ul>'];
+    var salesAmountTotal;
+    storeData[j].hourlyCustomers();
+    var storeSales = document.createElement('section');
+    for (var k = 0; k < storeData[j].storeHours.length; k++) {
+      salesAmount.push('<li>' + storeData[j].storeHours[k] + ': ' + storeData[j].projectedHourlySales[k] + '</li>');
+    }
+    salesAmountTotal = '<li>Total: ' + storeData[j].totalHourlySales + '</li>';
+    salesAmount.push(salesAmountTotal);
+    salesAmount.push('</ul>');
+    storeSales.innerHTML = salesAmount.join('');
+    console.log('store sales:', storeSales);
+    document.getElementById('salesContent').appendChild(storeSales);
+  }
+};
+
+// this runs the buildSales function and accepts the storesArray array as its argument
+salesMetrics(stores);
+
 
 hourlyCustomers = function() {
   var min = this.minCust;
@@ -32,7 +71,8 @@ hourlyCustomers = function() {
   };
   // returns key metrics into an array
   return [this.projectedHourlySales, this.totalHourlySales];
-};
+}
+
 
 // salesMetrics is a function that accepts storesArray as argument
 var salesMetrics = function(storeData) {
@@ -73,6 +113,3 @@ var salesMetrics = function(storeData) {
     document.getElementById('salesContent').appendChild(storeSales);
   }
 };
-
-// this runs the buildSales function and accepts the storesArray array as its argument
-salesMetrics(stores);
