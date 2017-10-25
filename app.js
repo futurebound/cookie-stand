@@ -6,8 +6,15 @@ function Store(storeName, minCust, maxCust, avgPerCust) {
   this.maxCust = maxCust,
   this.avgPerCust = avgPerCust,
   this.totalHourlySales = 0,
-  this.projectedHourlySales = [];
+  this.projectedHourlySales = ['6AM', '7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM', '6PM', '7PM',];
 };
+
+var firstAndPike = new Store('1st and Pike', 23, 65, 6.3);
+var seatac = new Store('SeaTac Airport', 3, 24, 1.2);
+var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
+var capHill = new Store('Capitol Hill', 20, 38, 2.3);
+var alki = new Store('Alki', 2, 16, 4.6);
+
 
 var pikeStore = {
   storeName: '1st and Pike',
