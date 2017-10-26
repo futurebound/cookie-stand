@@ -1,8 +1,9 @@
 'use strict';
 //this array gets filled by stores.push below
 var stores = [];
-var table = document.getElementById('table')
-var form = document.getElementById('form')
+var allStoresHourlyTotals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var table = document.getElementById('table');
+var form = document.getElementById('form');
 //var dailyTotals = [];
 //var hourlySalesArray = [];
 
@@ -28,9 +29,6 @@ stores.push(new Store('Alki', 2, 16, 4.6));
 Store.prototype.projectedHourlyAndDailyTotalSales = function() {
   var projectedHourlySales = [];
   var totalHourlySales = 0;
-  // this.projectedHourlySales = projectedHourlySales;
-  // this.totalHourlySales = totalHourlySales;
-  //var totalHourlySales = 0;
   for(var i = 0; i < this.storeHours.length; i++) {
     var projectedCustomers = Math.floor(Math.random() * (this.maxCust - this.minCust) + this.minCust);
     projectedHourlySales.push(Math.ceil(projectedCustomers * this.avgPerCust));
@@ -41,66 +39,44 @@ Store.prototype.projectedHourlyAndDailyTotalSales = function() {
   this.totalDailySales = totalHourlySales;
 };
 
-// Store.prototype.projectedHourlyCookieSales = function() {
-//
-// }
-
-// Store.prototype.projectedDailyTotals = function() {
-//   var hourlyCustomers;
-//   hourlyCustomers = this.projectedHourlySales += (Math.ceil(projectedCustomers * this.avgPerCust));
-// }
-
-// var projectedHourlySales = hourlySalesArray;
-// stores[0].projectedHourlyAndDailyTotalSales();
-// stores[1].projectedHourlyAndDailyTotalSales();
-// stores[2].projectedHourlyAndDailyTotalSales();
-// stores[3].projectedHourlyAndDailyTotalSales();
-// stores[4].projectedHourlyAndDailyTotalSales();
-
-var tableHeader = document.getElementById('table-header');
-var headerRow;
-var headerColumn;
-var hours;
-
 function createTableHeaders() {
+  var tableHeader = document.getElementById('table-header');
+  var headerRow;
+  var headerColumn;
+  var hours;
   headerRow = document.createElement('tr'); //creates the header row
   headerColumn = document.createElement('th'); // creates the first header cell in column
   tableHeader.innerHTML = ''; //nothign in the first cell
-  headerRow.appendChild(headerColumn);
+  headerRow.appendChild(headerColumn); //adds headerColumn, which is empty <th>, to the created header row
   for (var i = 0; i < stores[0].storeHours.length; i++) {
     hours = document.createElement('th');
     hours.innerHTML = stores[0].storeHours[i];
     headerRow.appendChild(hours);
     //console.log(typeof headerRow, headerRow);
   };
-  // var dailyLocationTotals = document.createElement('th');
-  // dailyLocationTotals.innerHTML = '<th>Daily Location Total</th>';
   hours = document.createElement('th');
   hours.innerHTML = 'Daily Location Total';
-  headerRow.appendChild(hours);
-  tableHeader.appendChild(headerRow);
+  headerRow.appendChild(hours); //adds hours of operation cells to headr row
+  tableHeader.appendChild(headerRow); // adds COMPLETE header row to table header, which is mapped to HTML
 }
 
 createTableHeaders();
 
-var tableBody = document.getElementById('table-body');
-var bodyRow;
-var storeColumn;
-var bodyColumn;
-var bodyTotals;
-
 function createTableBody() {
+  var tableBody = document.getElementById('table-body');
+  var bodyRow;
+  var storeColumn;
+  var bodyColumn;
+  var bodyTotals;
   for (var i = 0; i < stores.length; i++) {
     stores[i].projectedHourlyAndDailyTotalSales();
     bodyRow = document.createElement('tr'); //creates a row
     storeColumn = document.createElement('th'); //creates a header cell
     storeColumn.innerHTML = stores[i].storeName; // sets value in first header cell to the store name
     bodyRow.appendChild(storeColumn); //adds store name header cell to the row
-    //inner loop to push in data from each store about its projected sales that matches with the operating hours that are placed as the header above
     for (var j = 0; j < stores[i].storeHours.length; j++) {
       bodyColumn = document.createElement('td'); //makes a new column cell
-      //stores[i].projectedHourlyAndDailyTotalSales();
-      bodyColumn.innerHTML = stores[i].cookiesSoldPerHour[j]; //sets value of bodyColumn for the specific store in array to whatever the prototype method projectedHourlyAndDailyTotalSales[0] is, which in this case is the calculated # of cookies purchased per hour
+      bodyColumn.innerHTML = stores[i].cookiesSoldPerHour[j];
       bodyRow.appendChild(bodyColumn); //adds column to row
       console.log('i:', i);
     };
@@ -113,32 +89,26 @@ function createTableBody() {
 
 createTableBody();
 
-var tableFooterTotals = document.getElementById('table-footer');
-var footerRow;
-var totalsColumn;
-var footerColumn;
-var footerTotals;
 
-function createTableFooter() {
-  for (var i = 0; i < stores.length; i++) {
-    footerRow = document.createElement('tr'); //creates a row
-    totalsColumn = document.createElement('th'); //creates a header cell
-    totalsColumn.innerHTML = 'Totals'; // sets value in first header cell to the store name
-    footerRow.appendChild(totalsColumn); //adds store name header cell to the row
-    //inner loop to push in data from each store about its projected sales that matches with the operating hours that are placed as the header above
-    for (var j = 0; j < stores[i].storeHours.length; j++) {
-      footerColumn = document.createElement('td'); //makes a new column cell
-      footerColumn.innerHTML = stores[i].projectedHourlyAndDailyTotalSales()[0][j]; //sets value of bodyColumn for the specific store in array to whatever the prototype method projectedHourlyAndDailyTotalSales[0] is, which in this case is the calculated # of cookies purchased per hour
-      footerRow.appendChild(footerColumn); //adds column to row
-    };
-    footerTotals = document.createElement('th');
-    footerTotals.innerHTML = stores[i].projectedHourlyAndDailyTotalSales()[1];
-    footerRow.appendChild(footerTotals);
-    tableFooterTotals.appendChild(footerRow);
-  }
-}
-
-createTableFooter();
+// function createTableFooter() {
+//   for (var i = 0; i < stores.length; i++) {
+//     footerRow = document.createElement('tr'); //creates a row
+//     totalsColumn = document.createElement('th'); //creates a header cell
+//     totalsColumn.innerHTML = 'Totals'; // sets value in first header cell to the store name
+//     footerRow.appendChild(totalsColumn); //adds store name header cell to the row
+//     for (var j = 0; j < stores[i].storeHours.length; j++) {
+//       footerColumn = document.createElement('td'); //makes a new column cell
+//       footerColumn.innerHTML = stores[i].projectedHourlyAndDailyTotalSales()[0][j];
+//       footerRow.appendChild(footerColumn); //adds column to row
+//     };
+//     footerTotals = document.createElement('th');
+//     footerTotals.innerHTML = stores[i].projectedHourlyAndDailyTotalSales()[1];
+//     footerRow.appendChild(footerTotals);
+//     tableFooterTotals.appendChild(footerRow);
+//   }
+// }
+//
+// createTableFooter();
 
 // function formEntry(event) {
 //   event.preventDefault();
