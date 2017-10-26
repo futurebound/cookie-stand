@@ -1,6 +1,8 @@
 'use strict';
 //this array gets filled by stores.push below
 var stores = [];
+var table = document.getElementById('table')
+var form = document.getElementById('form')
 //var dailyTotals = [];
 //var hourlySalesArray = [];
 
@@ -10,8 +12,9 @@ function Store(storeName, minCust, maxCust, avgPerCust) {
   this.minCust = minCust,
   this.maxCust = maxCust,
   this.avgPerCust = avgPerCust,
-  this.totalHourlySales = 0,
-  this.storeHours = ['6AM', '7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM', '6PM', '7PM',];
+  this.totalDailySales = 0,
+  this.storeHours = ['6AM', '7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM', '6PM', '7PM',]; //this could be global since they are all operating with same hours
+  this.cookiesSoldPerHour = [];
 };
 
 //pushes new objects to the stores array above, that contain dynamic information as properties of those objects that can be called upon by things such as stores[0].storeName, etc.
@@ -32,10 +35,14 @@ Store.prototype.projectedHourlyAndDailyTotalSales = function() {
     var projectedCustomers = Math.floor(Math.random() * (this.maxCust - this.minCust) + this.minCust);
     projectedHourlySales.push(Math.ceil(projectedCustomers * this.avgPerCust));
     totalHourlySales += (Math.ceil(projectedCustomers * this.avgPerCust));
-    console.log('projected hourly sales:', projectedHourlySales[i]);
+    //console.log('projected hourly sales:', projectedHourlySales[i]);
   }
   return [projectedHourlySales, totalHourlySales];
 };
+
+// Store.prototype.projectedHourlyCookieSales = function() {
+//
+// }
 
 // Store.prototype.projectedDailyTotals = function() {
 //   var hourlyCustomers;
@@ -63,7 +70,7 @@ function createTableHeaders() {
     hours = document.createElement('th');
     hours.innerHTML = stores[0].storeHours[i];
     headerRow.appendChild(hours);
-    console.log(typeof headerRow, headerRow);
+    //console.log(typeof headerRow, headerRow);
   };
   // var dailyLocationTotals = document.createElement('th');
   // dailyLocationTotals.innerHTML = '<th>Daily Location Total</th>';
@@ -92,6 +99,7 @@ function createTableBody() {
       bodyColumn = document.createElement('td'); //makes a new column cell
       bodyColumn.innerHTML = stores[i].projectedHourlyAndDailyTotalSales()[0][j]; //sets value of bodyColumn for the specific store in array to whatever the prototype method projectedHourlyAndDailyTotalSales[0] is, which in this case is the calculated # of cookies purchased per hour
       bodyRow.appendChild(bodyColumn); //adds column to row
+      console.log('i:', i);
     };
     bodyTotals = document.createElement('th');
     bodyTotals.innerHTML = stores[i].projectedHourlyAndDailyTotalSales()[1];
@@ -128,3 +136,20 @@ createTableBody();
 // }
 //
 // createTableFooter();
+
+// function formEntry(event) {
+//   event.preventDefault();
+//
+//   var location = event.target.location.value;
+//   var minCust = event.target.min-cust.value;
+//   var maxCust = event.target.max-cust.value;
+//   var avgPerCust = even.target.avg-per-cust.value;
+//
+//   if (Number(minCust) < Number(maxCust)) {
+//     stores.push(new Store(location, minCust, maxCust, avgPerCust));
+//     createTable();
+//     form.reset();
+//   } else {
+//     alert('Max Customers must be greater than Min Customers');
+//   }
+// }
