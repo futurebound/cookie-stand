@@ -37,7 +37,8 @@ Store.prototype.projectedHourlyAndDailyTotalSales = function() {
     totalHourlySales += (Math.ceil(projectedCustomers * this.avgPerCust));
     //console.log('projected hourly sales:', projectedHourlySales[i]);
   }
-  return [projectedHourlySales, totalHourlySales];
+  this.cookiesSoldPerHour = projectedHourlySales;
+  this.totalDailySales = totalHourlySales;
 };
 
 // Store.prototype.projectedHourlyCookieSales = function() {
@@ -90,6 +91,7 @@ var bodyTotals;
 
 function createTableBody() {
   for (var i = 0; i < stores.length; i++) {
+    stores[i].projectedHourlyAndDailyTotalSales();
     bodyRow = document.createElement('tr'); //creates a row
     storeColumn = document.createElement('th'); //creates a header cell
     storeColumn.innerHTML = stores[i].storeName; // sets value in first header cell to the store name
@@ -97,12 +99,13 @@ function createTableBody() {
     //inner loop to push in data from each store about its projected sales that matches with the operating hours that are placed as the header above
     for (var j = 0; j < stores[i].storeHours.length; j++) {
       bodyColumn = document.createElement('td'); //makes a new column cell
-      bodyColumn.innerHTML = stores[i].projectedHourlyAndDailyTotalSales()[0][j]; //sets value of bodyColumn for the specific store in array to whatever the prototype method projectedHourlyAndDailyTotalSales[0] is, which in this case is the calculated # of cookies purchased per hour
+      //stores[i].projectedHourlyAndDailyTotalSales();
+      bodyColumn.innerHTML = stores[i].cookiesSoldPerHour[j]; //sets value of bodyColumn for the specific store in array to whatever the prototype method projectedHourlyAndDailyTotalSales[0] is, which in this case is the calculated # of cookies purchased per hour
       bodyRow.appendChild(bodyColumn); //adds column to row
       console.log('i:', i);
     };
     bodyTotals = document.createElement('th');
-    bodyTotals.innerHTML = stores[i].projectedHourlyAndDailyTotalSales()[1];
+    bodyTotals.innerHTML = stores[i].totalDailySales;
     bodyRow.appendChild(bodyTotals);
     tableBody.appendChild(bodyRow);
   }
@@ -110,32 +113,32 @@ function createTableBody() {
 
 createTableBody();
 
-// var tableFooterTotals = document.getElementById('table-footer');
-// var footerRow;
-// var totalsColumn;
-// var footerColumn;
-// var footerTotals;
-//
-// function createTableFooter() {
-//   for (var i = 0; i < stores.length; i++) {
-//     footerRow = document.createElement('tr'); //creates a row
-//     totalsColumn = document.createElement('th'); //creates a header cell
-//     totalsColumn.innerHTML = 'Totals'; // sets value in first header cell to the store name
-//     footerRow.appendChild(totalsColumn); //adds store name header cell to the row
-//     //inner loop to push in data from each store about its projected sales that matches with the operating hours that are placed as the header above
-//     for (var j = 0; j < stores[i].storeHours.length; j++) {
-//       footerColumn = document.createElement('td'); //makes a new column cell
-//       footerColumn.innerHTML = stores[i].projectedHourlyAndDailyTotalSales()[0][j]; //sets value of bodyColumn for the specific store in array to whatever the prototype method projectedHourlyAndDailyTotalSales[0] is, which in this case is the calculated # of cookies purchased per hour
-//       footerRow.appendChild(footerColumn); //adds column to row
-//     };
-//     footerTotals = document.createElement('th');
-//     footerTotals.innerHTML = stores[i].projectedHourlyAndDailyTotalSales()[1];
-//     footerRow.appendChild(footerTotals);
-//     tableFooterTotals.appendChild(footerRow);
-//   }
-// }
-//
-// createTableFooter();
+var tableFooterTotals = document.getElementById('table-footer');
+var footerRow;
+var totalsColumn;
+var footerColumn;
+var footerTotals;
+
+function createTableFooter() {
+  for (var i = 0; i < stores.length; i++) {
+    footerRow = document.createElement('tr'); //creates a row
+    totalsColumn = document.createElement('th'); //creates a header cell
+    totalsColumn.innerHTML = 'Totals'; // sets value in first header cell to the store name
+    footerRow.appendChild(totalsColumn); //adds store name header cell to the row
+    //inner loop to push in data from each store about its projected sales that matches with the operating hours that are placed as the header above
+    for (var j = 0; j < stores[i].storeHours.length; j++) {
+      footerColumn = document.createElement('td'); //makes a new column cell
+      footerColumn.innerHTML = stores[i].projectedHourlyAndDailyTotalSales()[0][j]; //sets value of bodyColumn for the specific store in array to whatever the prototype method projectedHourlyAndDailyTotalSales[0] is, which in this case is the calculated # of cookies purchased per hour
+      footerRow.appendChild(footerColumn); //adds column to row
+    };
+    footerTotals = document.createElement('th');
+    footerTotals.innerHTML = stores[i].projectedHourlyAndDailyTotalSales()[1];
+    footerRow.appendChild(footerTotals);
+    tableFooterTotals.appendChild(footerRow);
+  }
+}
+
+createTableFooter();
 
 // function formEntry(event) {
 //   event.preventDefault();
