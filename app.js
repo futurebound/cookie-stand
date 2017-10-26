@@ -1,7 +1,4 @@
 'use strict';
-
-var table = document.getElementById('table');
-var tableFooter = document.getElementById('table-footer');
 //this array gets filled by stores.push below
 var stores = [];
 //var dailyTotals = [];
@@ -28,6 +25,8 @@ stores.push(new Store('Alki', 2, 16, 4.6));
 Store.prototype.projectedHourlyAndDailyTotalSales = function() {
   var projectedHourlySales = [];
   var totalHourlySales = 0;
+  // this.projectedHourlySales = projectedHourlySales;
+  // this.totalHourlySales = totalHourlySales;
   //var totalHourlySales = 0;
   for(var i = 0; i < this.storeHours.length; i++) {
     var projectedCustomers = Math.floor(Math.random() * (this.maxCust - this.minCust) + this.minCust);
@@ -37,6 +36,11 @@ Store.prototype.projectedHourlyAndDailyTotalSales = function() {
   }
   return [projectedHourlySales, totalHourlySales];
 };
+
+// Store.prototype.projectedDailyTotals = function() {
+//   var hourlyCustomers;
+//   hourlyCustomers = this.projectedHourlySales += (Math.ceil(projectedCustomers * this.avgPerCust));
+// }
 
 // var projectedHourlySales = hourlySalesArray;
 // stores[0].projectedHourlyAndDailyTotalSales();
