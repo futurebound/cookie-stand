@@ -4,8 +4,6 @@ var stores = [];
 var allStoresHourlyTotals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var table = document.getElementById('table');
 var form = document.getElementById('form');
-//var dailyTotals = [];
-//var hourlySalesArray = [];
 
 //constructor function to create stores
 function Store(storeName, minCust, maxCust, avgPerCust) {
@@ -33,6 +31,8 @@ Store.prototype.projectedHourlyAndDailyTotalSales = function() {
     var projectedCustomers = Math.floor(Math.random() * (this.maxCust - this.minCust) + this.minCust);
     projectedHourlySales.push(Math.ceil(projectedCustomers * this.avgPerCust));
     totalHourlySales += (Math.ceil(projectedCustomers * this.avgPerCust));
+    allStoresHourlyTotals[i] += Math.ceil(projectedCustomers * this.avgPerCust);
+    console.log(allStoresHourlyTotals);
     //console.log('projected hourly sales:', projectedHourlySales[i]);
   }
   this.cookiesSoldPerHour = projectedHourlySales;
