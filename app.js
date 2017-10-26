@@ -1,7 +1,6 @@
 'use strict';
 
 var table = document.getElementById('table');
-var tableHeader = document.getElementById('table-header');
 var tableBody = document.getElementById('table-body');
 var tableFooter = document.getElementById('table-footer');
 //this array gets filled by stores.push below
@@ -41,31 +40,59 @@ Store.prototype.projectedHourlyAndDailyTotalSales = function() {
 
 // var projectedHourlySales = hourlySalesArray;
 // stores[0].projectedHourlyAndDailyTotalSales();
-// stores[1].projectedHourlySales();
-// stores[2].projectedHourlySales();
-// stores[3].projectedHourlySales();
-// stores[4].projectedHourlySales();
-//THE ABOVE ALL FILL THE
+// stores[1].projectedHourlyAndDailyTotalSales();
+// stores[2].projectedHourlyAndDailyTotalSales();
+// stores[3].projectedHourlyAndDailyTotalSales();
+// stores[4].projectedHourlyAndDailyTotalSales();
+
+var tableHeader = document.getElementById('table-header');
+var headerRow;
+var headerColumn;
+var hours;
 
 function createTableHeaders() {
-  var row;
-  row = document.createElement('tr');
-  var emptyCell = document.createElement('td');
-  row.appendChild(emptyCell);
-  var hours;
-  for (var i = 0; i < stores.storeHours.length; i++) {
-    hours = document.createElement('td');
-    hours.innerHTML = store.storeHours[i];
-    row.appendChild(hours);
+  headerRow = document.createElement('tr'); //creates the header row
+  headerColumn = document.createElement('th'); // creates the first header cell in column
+  tableHeader.innerHTML = ''; //nothign in the first cell
+  headerRow.appendChild(headerColumn);
+  for (var i = 0; i < stores[0].storeHours.length; i++) {
+    hours = document.createElement('th');
+    hours.innerHTML = stores[0].storeHours[i];
+    headerRow.appendChild(hours);
+    console.log(typeof headerRow, headerRow);
   };
-  var dailyLocationTotals = document.createElement('td');
-  dailyLocationTotals.innerHTML = 'Daily Location Total';
+  // var dailyLocationTotals = document.createElement('th');
+  // dailyLocationTotals.innerHTML = '<th>Daily Location Total</th>';
+  hours = document.createElement('th');
+  hours.innerHTML = 'Daily Location Total';
+  headerRow.appendChild(hours);
+  tableHeader.appendChild(headerRow);
 }
 
 createTableHeaders();
 
-
-
+// var tableContent = document.getElementById('table_content');  //select the empty table
+// var tableRow;
+// var titleCol;
+// var dataCol;
+// var totalCol;
+// for (var row = 0; row < storeLocations.length; row ++) {  //the outer loop creates a row for each store
+//   tableRow = document.createElement('tr');  //create a new row
+//   titleCol = document.createElement('th');  //create the first column in the row
+//   titleCol.innerHTML = storeLocations[row].name;   //set the value of the column to the store title
+//   tableRow.appendChild(titleCol);  //add the column to the row
+//   //the inner loop creates columns in each row for each value in cookies per hour
+//   for (var col = 0; col < storeLocations[row].cookiesPerHour.length; col++) {
+//     dataCol = document.createElement('td');  //create a new column
+//     dataCol.innerHTML = storeLocations[row].cookiesPerHour[col];  //set the value of the column to the cookies per hour value
+//     tableRow.appendChild(dataCol);  //add the column to the row
+//   };
+//
+//   totalCol = document.createElement('th');  //create a new column
+//   totalCol.innerHTML = storeLocations[row].dailyTotal  //set the value of the column to the daily total
+//   tableRow.appendChild(totalCol);  //add the column to the end of the row
+//   tableContent.appendChild(tableRow);  //add the row to the table then move on to the next row and repeat
+// };
 
 
 // var salesMetrics = function(storeData) {
@@ -92,22 +119,22 @@ createTableHeaders();
 
 
 
-hourlyCustomers = function() {
-  var min = this.minCust;
-  var max = this.maxCust;
-  var avg = this.avgPerCust;
-  // for loop that cycles through all the storeHours array to provide projectedSales data based on the min/max customer values provided, as well as the average cookies sold per customer, pushes the projected hourly sales calculated from the randomly calculated projected customers, console logs those values with each iteration per hour, and then ultimately returns an array with the projected hourly sales for each hour and the total hourly sales for the day
-  for(var i = 0; i < this.storeHours.length; i++) {
-    var projectedCustomers = Math.floor(Math.random() * (max - min) + min);
-    this.projectedHourlySales.push(Math.ceil(projectedCustomers * avg));
-    this.totalHourlySales += (Math.ceil(projectedCustomers * avg));
-    console.log('projected hourly sales:', this.projectedHourlySales[i]);
-    console.log('total hourly sales:', this.totalHourlySales);
-  };
-  // returns key metrics into an array
-  return [this.projectedHourlySales, this.totalHourlySales];
-};
-//
+// hourlyCustomers = function() {
+//   var min = this.minCust;
+//   var max = this.maxCust;
+//   var avg = this.avgPerCust;
+//   // for loop that cycles through all the storeHours array to provide projectedSales data based on the min/max customer values provided, as well as the average cookies sold per customer, pushes the projected hourly sales calculated from the randomly calculated projected customers, console logs those values with each iteration per hour, and then ultimately returns an array with the projected hourly sales for each hour and the total hourly sales for the day
+//   for(var i = 0; i < this.storeHours.length; i++) {
+//     var projectedCustomers = Math.floor(Math.random() * (max - min) + min);
+//     this.projectedHourlySales.push(Math.ceil(projectedCustomers * avg));
+//     this.totalHourlySales += (Math.ceil(projectedCustomers * avg));
+//     console.log('projected hourly sales:', this.projectedHourlySales[i]);
+//     console.log('total hourly sales:', this.totalHourlySales);
+//   };
+//   // returns key metrics into an array
+//   return [this.projectedHourlySales, this.totalHourlySales];
+// };
+// //
 //
 // // salesMetrics is a function that accepts storesArray as argument
 // var salesMetrics = function(storeData) {
