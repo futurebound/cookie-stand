@@ -89,26 +89,48 @@ function createTableBody() {
 
 createTableBody();
 
+function createTableFooter() {
+  var tableFooter = document.getElementById('table-footer');
+  var footerRow;
+  var footerColumn;
+  var totals;
+  footerRow = document.createElement('tr'); //creates the footer row
+  footerColumn = document.createElement('th'); // creates the first footer cell in column
+  tableFooter.innerHTML = 'Totals'; //nothign in the first cell
+  footerRow.appendChild(footerColumn);
+  for (var i = 0; i < allStoresHourlyTotals.length; i++) {
+    totals = document.createElement('td');
+    totals.innerHTML = allStoresHourlyTotals[i];
+    footerRow.appendChild(totals);
+  };
+  totals = document.createElement('td');
+  totals.innerHTML = allStoresHourlyTotals.reduce(function(a,b){return a + b;});
+  footerRow.appendChild(totals);
+  tableFooter.appendChild(footerRow);
+}
 
-// function createTableFooter() {
-//   for (var i = 0; i < stores.length; i++) {
-//     footerRow = document.createElement('tr'); //creates a row
-//     totalsColumn = document.createElement('th'); //creates a header cell
-//     totalsColumn.innerHTML = 'Totals'; // sets value in first header cell to the store name
-//     footerRow.appendChild(totalsColumn); //adds store name header cell to the row
-//     for (var j = 0; j < stores[i].storeHours.length; j++) {
-//       footerColumn = document.createElement('td'); //makes a new column cell
-//       footerColumn.innerHTML = stores[i].projectedHourlyAndDailyTotalSales()[0][j];
-//       footerRow.appendChild(footerColumn); //adds column to row
-//     };
-//     footerTotals = document.createElement('th');
-//     footerTotals.innerHTML = stores[i].projectedHourlyAndDailyTotalSales()[1];
-//     footerRow.appendChild(footerTotals);
-//     tableFooterTotals.appendChild(footerRow);
-//   }
+createTableFooter();
+
+// function createTableHeaders() {
+//   var tableHeader = document.getElementById('table-header');
+//   var headerRow;
+//   var headerColumn;
+//   var hours;
+//   headerRow = document.createElement('tr'); //creates the header row
+//   headerColumn = document.createElement('th'); // creates the first header cell in column
+//   tableHeader.innerHTML = ''; //nothign in the first cell
+//   headerRow.appendChild(headerColumn); //adds headerColumn, which is empty <th>, to the created header row
+//   for (var i = 0; i < stores[0].storeHours.length; i++) {
+//     hours = document.createElement('th');
+//     hours.innerHTML = stores[0].storeHours[i];
+//     headerRow.appendChild(hours);
+//     //console.log(typeof headerRow, headerRow);
+//   };
+//   hours = document.createElement('th');
+//   hours.innerHTML = 'Daily Location Total';
+//   headerRow.appendChild(hours); //adds hours of operation cells to headr row
+//   tableHeader.appendChild(headerRow); // adds COMPLETE header row to table header, which is mapped to HTML
 // }
-//
-// createTableFooter();
 
 // function formEntry(event) {
 //   event.preventDefault();
