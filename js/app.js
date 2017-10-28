@@ -3,7 +3,8 @@
 var stores = [];
 var allStoresHourlyTotals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var table = document.getElementById('table');
-var form = document.getElementById('form');
+var form = document.getElementById('store_entry');
+form.addEventListener('submit', formData);
 
 //constructor function to create stores
 function Store(storeName, minCust, maxCust, avgPerCust) {
@@ -38,6 +39,21 @@ Store.prototype.projectedHourlyAndDailyTotalSales = function() {
   this.cookiesSoldPerHour = projectedHourlySales;
   this.totalDailySales = totalHourlySales;
 };
+
+function formData(event) {
+  event.preventDefault();
+
+  var storeName = event.target.store_name.value;
+  var minCust = parseInt(event.target.min_customers.value);
+  var maxCust = parseInt(event.target.max_customers.value);
+  var avgPerCust = parseInt(event.target.avg_per_cust.value); // OR to put decimal point in,
+  //var average = parseInt(event.target.avg_per_cust.value + '.' + event.target.avg_per_cust_decimal.value);  AND CREATE NEW FORM ENTRY BOX FOR DECIMAL POINTS
+  stores.push(new Store(storeName, minCust, maxCust, avgPerCust));
+  createTableBody();
+  //  MAYBE? createTableFooter();
+  form.reset();
+}
+
 
 function createTableHeaders() {
   var tableHeader = document.getElementById('table-header');
