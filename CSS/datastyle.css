@@ -1,6 +1,8 @@
 header {
   width: 100%;
   height: 10%;
+  background-color: #e8ca8b;
+  border: solid black 3px;
 }
 
 #title {
@@ -20,8 +22,14 @@ ul {
 section {
   display: inline-block;
   margin: 60px;
+  background-color: #e8ca8b;
+  border: solid black 3px;
 }
 
 #salesContent {
   margin: 5%;
+}
+
+body {
+  background-color: #c76950;
 }
