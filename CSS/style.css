@@ -1,0 +1,21 @@
+header {
+  background-color: #e8ca8b;
+  border: solid black 3px;
+  
+}
+
+h1 {
+  font-family: 'Audiowide', cursive;
+  text-align: center;
+  font-size: 130px;
+  position: relative;
+  top: 0;
+}
+
+#salmon {
+  text-align: center;
+}
+
+body {
+  background-color: #c76950;
+}
