@@ -40,13 +40,12 @@ Store.prototype.projectedHourlyAndDailyTotalSales = function() {
   this.totalDailySales = totalHourlySales;
 };
 
+// event handler for form submission
 function formData(event) {
   event.preventDefault();
+  console.log('!!!!', event.target.value);
 
-  var storeName = event.target.store_name.value;
-  var minCust = parseInt(event.target.min_customers.value);
-  var maxCust = parseInt(event.target.max_customers.value);
-  var avgPerCust = parseInt(event.target.avg_per_cust.value); // OR to put decimal point in,
+ // OR to put decimal point in,
   //var average = parseInt(event.target.avg_per_cust.value + '.' + event.target.avg_per_cust_decimal.value);  AND CREATE NEW FORM ENTRY BOX FOR DECIMAL POINTS
   stores.push(new Store(storeName, minCust, maxCust, avgPerCust));
   createTableBody();
@@ -125,4 +124,5 @@ function createTableFooter() {
   tableFooter.appendChild(footerRow);
 }
 
-createTableFooter();
+var listener = document.getElementById('store_entry');
+listener.addEventListener('submit', formData);
