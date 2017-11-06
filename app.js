@@ -111,26 +111,6 @@ function createTableFooter() {
 
 createTableFooter();
 
-// function createTableHeaders() {
-//   var tableHeader = document.getElementById('table-header');
-//   var headerRow;
-//   var headerColumn;
-//   var hours;
-//   headerRow = document.createElement('tr'); //creates the header row
-//   headerColumn = document.createElement('th'); // creates the first header cell in column
-//   tableHeader.innerHTML = ''; //nothign in the first cell
-//   headerRow.appendChild(headerColumn); //adds headerColumn, which is empty <th>, to the created header row
-//   for (var i = 0; i < stores[0].storeHours.length; i++) {
-//     hours = document.createElement('th');
-//     hours.innerHTML = stores[0].storeHours[i];
-//     headerRow.appendChild(hours);
-//     //console.log(typeof headerRow, headerRow);
-//   };
-//   hours = document.createElement('th');
-//   hours.innerHTML = 'Daily Location Total';
-//   headerRow.appendChild(hours); //adds hours of operation cells to headr row
-//   tableHeader.appendChild(headerRow); // adds COMPLETE header row to table header, which is mapped to HTML
-// }
 
 // function formEntry(event) {
 //   event.preventDefault();
