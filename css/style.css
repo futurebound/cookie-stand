@@ -1,0 +1,32 @@
+header {
+  background-color: #e8ca8b;
+  border: solid black 3px;
+  height: 300px;
+}
+
+header button {
+  position: relative;
+}
+
+#title {
+  font-family: 'Audiowide', cursive;
+  text-align: center;
+  font-size: 130px;
+  position: absolute;
+  top: 0;
+}
+
+.salmon {
+  text-align: center;
+  position: absolute;
+  left: 20%;
+  top: 350px;
+}
+
+body {
+  background-color: #c76950;
+}
+
+#seattle {
+  width: 100%;
+}
